@@ -1,26 +1,15 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 func main() {
-	fmt.Println("start")
-	s := `pass123`
-	bs, err := bcrypt.GenerateFromPassword([]byte(s), bcrypt.MinCost)
-	if err != err {
+	x := []string{"hello", "world", "prabably", "not"}
+	v, err := json.Marshal(x)
+	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(s)
-	fmt.Println(bs)
-
-	loginPW := `pass123`
-	err = bcrypt.CompareHashAndPassword(bs, []byte(loginPW))
-	if err != nil {
-		fmt.Println("login failed")
-		return
-	}
-	fmt.Println("you are logged in")
+	fmt.Println(string(v))
 }
