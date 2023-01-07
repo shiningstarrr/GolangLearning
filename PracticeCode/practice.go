@@ -4,48 +4,30 @@ import (
 	"fmt"
 	"runtime"
 	"sync"
+	"sync/atomic"
 )
 
 var wg sync.WaitGroup
-var mu sync.Mutex
 
 func main() {
-	counter := 0
-	fmt.Println("goroutine times: ", runtime.NumGoroutine())
+	fmt.Println("start")
+	fmt.Println("goroutines: ", runtime.NumGoroutine())
+	var counter int64
 	wg.Add(100)
+
 	for i := 0; i < 100; i++ {
 		go func() {
-			mu.Lock()
-			v := counter
-			runtime.Gosched()
-			v++
-			counter = v
-			mu.Unlock()
+			atomic.AddInt64(&counter, 1)
+
+			//runtime.Gosched()
+			fmt.Println(atomic.LoadInt64(&counter))
+
 			wg.Done()
+			//fmt.Println("goroutines: ", runtime.NumGoroutine())
 		}()
 	}
 	wg.Wait()
-	fmt.Println("goroutine times: ", runtime.NumGoroutine())
-	fmt.Println("count = ", counter)
+	fmt.Println("count: ", counter)
+	fmt.Println("goroutines: ", runtime.NumGoroutine())
 
-}
-
-func foo() {
-	for i := 0; i < 3; i++ {
-		fmt.Println("foo:", i)
-	}
-	wg.Done()
-}
-
-func bar() {
-	for i := 0; i < 3; i++ {
-		fmt.Println("bar:", i)
-	}
-}
-
-func grr() {
-	for i := 0; i < 3; i++ {
-		fmt.Println("grr:", i)
-	}
-	fmt.Println("done_2")
 }
