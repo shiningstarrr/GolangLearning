@@ -2,14 +2,19 @@ package main
 
 import (
 	"fmt"
-	"runtime"
 )
 
 func main() {
 	fmt.Println("start")
-	const os = runtime.GOOS
-	const ar = runtime.GOARCH
-	fmt.Println("os:", os)
-	fmt.Println("arch:", ar)
+	val := 3
+	p := &val
+	fmt.Println("address", *p)
+	double(&val)
+	fmt.Println(val)
+	fmt.Println(*p)
+}
+
+func double(x *int) {
+	*x = *x * 2
 
 }
