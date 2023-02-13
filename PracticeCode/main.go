@@ -5,14 +5,14 @@ import (
 	"strings"
 )
 
+// don't touch below this line
+
 func removeProfanity(message *string) {
 	replacer := strings.NewReplacer("dang", "****", "shoot", "****", "heck", "****")
 	s := replacer.Replace(*message)
 	*message = s
 
 }
-
-// don't touch below this line
 
 func main() {
 	messages := []string{
