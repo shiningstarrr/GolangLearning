@@ -1,4 +1,4 @@
-package mymaththree
+package mymath
 
 import (
 	"fmt"
