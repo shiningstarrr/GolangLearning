@@ -1,28 +1,34 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"strings"
+	"log"
 )
 
-// don't touch below this line
+type sqrtError struct {
+	lat  string
+	long string
+	err  error
+}
 
-func removeProfanity(message *string) {
-	replacer := strings.NewReplacer("dang", "****", "shoot", "****", "heck", "****")
-	s := replacer.Replace(*message)
-	*message = s
+func (se sqrtError) Error() string {
+	return fmt.Sprintf("math error: %v %v %v", se.lat, se.long, se.err)
+}
 
+func sqrt(f float64) (float64, error) {
+	if f < 0 {
+		e := errors.New("more coffee needed")
+		return f, sqrtError{"50", "99", e}
+	}
+	return 42, nil
 }
 
 func main() {
-	messages := []string{
-		"well shoot, this is awful",
-		"dang robots",
-		"dang them to heck",
+	fmt.Println("start")
+	_, err := sqrt(-10.23)
+	if err != nil {
+		log.Println(err)
 	}
 
-	for _, message := range messages {
-		removeProfanity(&message)
-		fmt.Println(message)
-	}
 }
