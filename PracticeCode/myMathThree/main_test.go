@@ -10,7 +10,12 @@ func TestSum(t *testing.T) {
 		data   []int
 		answer int
 	}
-	tests := []test{test{[]int{21, 21}, 42}, test{[]int{3, 4, 5}, 12}, test{[]int{1, 2}, 3}, test{[]int{-1, -2}, -3}}
+	tests := []test{
+		test{[]int{21, 21}, 42},
+		test{[]int{3, 4, 5}, 12},
+		test{[]int{1, 2}, 3},
+		test{[]int{-1, -2}, -3},
+	}
 
 	for _, v := range tests {
 		x := Sum(v.data...)
