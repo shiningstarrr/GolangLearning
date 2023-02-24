@@ -1,8 +1,9 @@
 package main
 
 import (
-	"PracticeCode/01/mymath"
 	"fmt"
+
+	"github.com/shiningstarrr/GolangLearning/tree/master/PracticeCode/01/mymath"
 )
 
 func main() {
